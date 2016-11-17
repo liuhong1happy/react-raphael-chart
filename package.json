@@ -37,7 +37,8 @@
     "path": "^0.12.7",
     "react-transform-catch-errors": "^1.0.2",
     "react-transform-hmr": "^1.0.4",
-    "style-loader": "^0.13.1"
+    "style-loader": "^0.13.1",
+    "voronoi": "^1.0.0"
   },
   "repository": {
     "type": "git",

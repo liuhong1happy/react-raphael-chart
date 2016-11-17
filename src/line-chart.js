@@ -9,24 +9,21 @@ class LineSerise extends React.Component{
 		return ["M",yAxis.width,height-xAxis.height+15,"L",width, height-xAxis.height+15 ];
 	}
 	getLinePath(){
-        var data = Utils.getLineData({width,height,xAxis,yAxis},serise);
+        var data = this.getDrawPoints();
 		var path = [];
-		var _data = data.Values;
-		if(_data.length>=1){
-			path.push([ "M", _data[0]._x, _data[0].y ]);
+		if(data.length>=1){
+			path.push([ "M", data[0]._x, data[0]._y ]);
 			for(var i=1;i<_data.length;i++){
-				path.push(["L", _data[i]._x, _data[i]._y ]);
+				path.push(["L", data[i]._x, data[i]._y ]);
 			}
 		}else{
-			path.push([ "M", _data[0]._x || 0, _data[0].y || 0 ]);
+			path.push([ "M", data[0]._x || 0, data[0]._y || 0 ]);
 		}
 		return path;
 	}
 	getCurvePath(first){
-		 var { width,height,serise,xAxis,yAxis} = this.props;
-        var _data = Utils.getLineData({width,height,xAxis,yAxis},serise);
+        var data = this.getDrawPoints();
 		var path = [];
-		var data = _data.Values;
 		var controls = Utils.getControlPoint(data);
 		var pathData = ["M"+first.x+","+first.y+"C"+first.x+","+first.y+" "+controls[0].x+","+controls[0].y+" "+data[1]._x+","+data[1]._y];
 		for(var i=1;i<data.length-1;i++){
@@ -40,16 +37,19 @@ class LineSerise extends React.Component{
 		}
 		return pathData;
 	}
-    render(){
+    getDrawPoints(){
 	   var { width,height,serise,xAxis,yAxis} = this.props;
        var data = Utils.getLineData({width,height,xAxis,yAxis},serise);
-		
-		var _data = data.Values;
+       return data.Values;
+    }
+    render(){
+	    var {serise} = this.props;
+		var data = this.getDrawPoints();
 		var first = {
-			x:_data[0]?_data[0]._x:0,
-			y:_data[0]?_data[0]._y:0
+			x:data[0]?data[0]._x:0,
+			y:data[0]?data[0]._y:0
 		}
-		if(_data.length==1){
+		if(data.length==1){
 			return (<Circle r="4" x={first.x} y={first.y} attr={{"fill": serise.color,"stroke":serise.color,"stroke-width":serise.thickness}} />)
 		}
 					
@@ -63,14 +63,35 @@ class LineSerise extends React.Component{
 }
 
 class LineChart extends React.Component{
+    constructor(props){
+        super(props);
+        this.loadedCount = 0;
+    }
+    getSerisePointsByIndex(index){
+        var points = [];
+        if(this.refs["serise"+index])
+            points = this.refs["serise"+index].getDrawPoints();
+        return points;
+    }
+    getSeriseAllPoints(){
+        var {serises} = this.props;
+        var points = [];
+        for(var i=0;i<serises.length;i++){
+            points = points.concat(this.refs["serise"+i].getDrawPoints());
+        }
+        return points;
+    }
     render(){
         var {width,height,serises,xAxis,yAxis,grid} = this.props;
         return (<Paper width={width} height={height}>
             <Axis width={width} height={height} xAxis={xAxis} yAxis={yAxis} grid={grid} />
             {
                 serises.map(function(ele,pos){
-                    return (<LineSerise width={width} height={height} serise={ele} xAxis={xAxis} yAxis={yAxis} />)
+                    return (<LineSerise ref={"serise"+pos} width={width} height={height} serise={ele} xAxis={xAxis} yAxis={yAxis} />)
                 })
+            }
+            {
+                this.props.children
             }
         </Paper>)
     }
