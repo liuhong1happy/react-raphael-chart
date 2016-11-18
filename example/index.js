@@ -1,7 +1,7 @@
 require('./index.less');
 var React = require('react');
 var ReactDOM = require('react-dom');
-var {LineChart} = require('../lib/index');
+var {LineChart,BarChart,PieChart} = require('../lib/index');
 var Voronoi = require('voronoi');
 const { Raphael, Paper, Set, Text, Rect,Path, Circle } = require('react-raphael');
 
@@ -11,8 +11,27 @@ var lineSerise = {
 	data: [{x:0,y:90},{x:1,y:83},{x:2,y:80},{x:3,y:45},{x:4,y:82},{x:5,y:75},{x:6,y:95},{x:7,y:100},{x:8,y:98},{x:9,y:92},{x:10,y:94}]
 }
 
+var barSerise = {
+	color: "#74C93C",
+	thickness: 2,
+	data: [{x:1,y:83},{x:2,y:80},{x:3,y:45},{x:4,y:82},{x:5,y:75},{x:6,y:95},{x:7,y:100},{x:8,y:98},{x:9,y:92},{x:10,y:94}]
+}
+
+var pieSerise = {
+	color: "#74C93C",
+	background: "#DDD",
+	radius: 48,
+	center: { x: 50,y: 50},
+	label: "98%",
+	value: 98,
+	total: 100,
+	width: 100,
+	height: 100
+}
 
 const SampleLineChart = ()=> <LineChart width={500} height={360} serises={[lineSerise]} />;
+const SampleBarChart = ()=> <BarChart width={500} height={360} serises={[barSerise]} />;
+const SamplePieChart = () => <PieChart {...pieSerise} />;
 
 class Cell extends React.Component{
 	handleMouseOver(){
@@ -94,4 +113,6 @@ class ExtendLineChart extends React.Component{
 ReactDOM.render(<div>
                 <SampleLineChart />
                 <ExtendLineChart />
+				<SampleBarChart />
+				<SamplePieChart />
                 </div>,document.getElementById("react-container"));

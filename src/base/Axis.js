@@ -53,15 +53,18 @@ class XAxis extends React.Component{
 	render(){
 		var xValues = this.props.xValues;
 		var {color,thickness} = this.props.grid;
+		var type = this.props.type;
 		return (<Set>
 			{
 				xValues.map(function(ele,pos){
-					return (<Line x1={ele.x} y1={ele.y1} x2={ele.x} y2={ele.y2} attr={{"stroke":color,"stroke-width":thickness}}/>)
+					return (<Line key={pos} x1={ele.x} y1={ele.y1} x2={ele.x} y2={ele.y2} attr={{"stroke":color,"stroke-width":thickness}}/>)
 				})
 			}
 			{
 				xValues.map(function(ele,pos){
-					return (<Text x={ele.x} y={ele.y2 + 12} text={ele.label} attr={{"fill":ele.color,"font-size": 14}}/>)
+					var x = ele.x;
+					if(type=="bar") x = ele.x + ele.interval /2;
+					return (<Text key={pos} x={x} y={ele.y2 + 12} text={ele.label} attr={{"fill":ele.color,"font-size": 14}}/>)
 				})
 			}
 		</Set>)
@@ -70,11 +73,11 @@ class XAxis extends React.Component{
 
 class Axis extends React.Component{
     render(){
-        var { width,height,xAxis,yAxis,grid} = this.props;
-        var data = Utils.getAxisData({width,height,xAxis,yAxis});
+        var { width, height, xAxis, yAxis, grid, type} = this.props;
+        var data = Utils.getAxisData({width,height,xAxis,yAxis,type});
 		
         return (<Set>
-            <XAxis xValues={data.xValues} grid={grid} />        
+            <XAxis xValues={data.xValues} grid={grid} type={type}/>        
             <YAxis yValues={data.yValues} grid={grid} />
             <Grid grid={grid} data={data} />
         </Set>)

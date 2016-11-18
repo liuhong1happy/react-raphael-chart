@@ -66,8 +66,6 @@ class LineChart extends React.Component{
     constructor(props){
         super(props);
     }
-	
-	
     getSerisePointsByIndex(index){
         var points = [];
 		var { serises,width,height,xAxis,yAxis } = this.props;
@@ -86,7 +84,7 @@ class LineChart extends React.Component{
     render(){
         var {width,height,serises,xAxis,yAxis,grid} = this.props;
         return (<Paper width={width} height={height}>
-            <Axis width={width} height={height} xAxis={xAxis} yAxis={yAxis} grid={grid} />
+            <Axis  type="line" width={width} height={height} xAxis={xAxis} yAxis={yAxis} grid={grid} />
             {
                 serises.map(function(ele,pos){
                     return (<LineSerise ref={"serise"+pos} width={width} height={height} serise={ele} xAxis={xAxis} yAxis={yAxis} />)
