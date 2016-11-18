@@ -65,19 +65,21 @@ class LineSerise extends React.Component{
 class LineChart extends React.Component{
     constructor(props){
         super(props);
-        this.loadedCount = 0;
     }
+	
+	
     getSerisePointsByIndex(index){
         var points = [];
-        if(this.refs["serise"+index])
-            points = this.refs["serise"+index].getDrawPoints();
-        return points;
+		var { serises,width,height,xAxis,yAxis } = this.props;
+		var serise = serises[index];
+        var data = Utils.getLineData({width,height,xAxis,yAxis},serise);
+        return data.Values;
     }
     getSeriseAllPoints(){
         var {serises} = this.props;
         var points = [];
         for(var i=0;i<serises.length;i++){
-            points = points.concat(this.refs["serise"+i].getDrawPoints());
+            points = points.concat(this.getSerisePointsByIndex(i));
         }
         return points;
     }
