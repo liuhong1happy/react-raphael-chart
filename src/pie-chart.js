@@ -46,9 +46,36 @@ class PieChart extends React.Component{
 		return (<Paper width={width} height={height}>
 				<Circle x={center.x} y={center.y} r={radius} attr={{"fill": background, "stroke": "none"}} />
 				<Path d={data.defaultPath} attr={{"fill": color, "stroke": "none"}} data={data.paths} load={this.handleLoaded.bind(this)}/>
-				<Text x={center.x} y={center.y+radius/2} text={label} attr={{"fill": data.angle>180?"#fff": "#444"  , "stroke": "none"}} />
+                <Text x={center.x} y={center.y+radius/3} text={label} attr={{"fill": data.angle>180?"#fff": "#444"  , "stroke": "none"}} />
+                {
+                    this.props.children
+                }
 				</Paper>)
 	}
 }
+
+
+PieChart.propTypes = { 
+	width: React.PropTypes.number, 
+	height: React.PropTypes.number,
+	color: React.PropTypes.string, 
+	background: React.PropTypes.string, 
+	center: React.PropTypes.object, 
+	value:  React.PropTypes.number,
+    label: React.PropTypes.string,
+    total: React.PropTypes.number,
+    radius:  React.PropTypes.number
+};
+PieChart.defaultProps = { 
+	color: "#74C93C",
+	background: "#DDD",
+	radius: 48,
+	center: { x: 50,y: 50},
+	label: "98%",
+	value: 98,
+	total: 100,
+	width: 100,
+	height: 100
+};
 
 module.exports = PieChart;

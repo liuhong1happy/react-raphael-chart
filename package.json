@@ -15,7 +15,7 @@
     "raphael": "^2.2.6",
     "react": "^0.14.8",
     "react-dom": "^0.14.8",
-    "react-raphael": "^0.5.7"
+    "react-raphael": "^0.6.0"
   },
   "devDependencies": {
     "babel": "^6.0.0",

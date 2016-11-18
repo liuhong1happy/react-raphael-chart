@@ -1,7 +1,7 @@
 require('./index.less');
 var React = require('react');
 var ReactDOM = require('react-dom');
-var {LineChart,BarChart,PieChart} = require('../lib/index');
+var {LineChart,BarChart,PieChart,DoughnutChart} = require('../lib/index');
 var Voronoi = require('voronoi');
 const { Raphael, Paper, Set, Text, Rect,Path, Circle } = require('react-raphael');
 
@@ -32,6 +32,7 @@ var pieSerise = {
 const SampleLineChart = ()=> <LineChart width={500} height={360} serises={[lineSerise]} />;
 const SampleBarChart = ()=> <BarChart width={500} height={360} serises={[barSerise]} />;
 const SamplePieChart = () => <PieChart {...pieSerise} />;
+const SampleDoughnutChart = () => <DoughnutChart {...pieSerise} />;
 
 class Cell extends React.Component{
 	handleMouseOver(){
@@ -67,7 +68,7 @@ class Cell extends React.Component{
 				<Text x={site.x} y={site.y} text={label} hide={true} translate={{x:0,y: 10}}/>
 				<Circle x={site.x} y={site.y} r={3} attr={{"fill":"#000"}} hide={true}/>
 			</Set>
-			<Path d={path} attr={{"fill":"#fff","stroke":"none"}}  mouseover={this.handleMouseOver} mouseout={this.handleMouseOut}/>
+			<Path d={path} attr={{"fill":"none","stroke":"none"}}  mouseover={this.handleMouseOver} mouseout={this.handleMouseOut}/>
 		</Set>)
 	}
 }
@@ -115,4 +116,5 @@ ReactDOM.render(<div>
                 <ExtendLineChart />
 				<SampleBarChart />
 				<SamplePieChart />
+                <SampleDoughnutChart />
                 </div>,document.getElementById("react-container"));
