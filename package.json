@@ -7,7 +7,8 @@
     "test": "test",
     "clean": "rm -rf ./lib",
     "build": "npm run clean & NODE_ENV=production babel ./src --out-dir ./lib",
-    "example": "webpack-dev-server --devtool eval --progress --hot --host 0.0.0.0 --config webpack.example.config.js"
+    "example": "webpack-dev-server --devtool eval --progress --hot --host 0.0.0.0 --config webpack.example.config.js",
+    "docs": "webpack --devtool cheap-module-source-map --progress --color --profile --config webpack.docs.config.js --watch"
   },
   "dependencies": {
     "console-polyfill": "^0.2.2",
