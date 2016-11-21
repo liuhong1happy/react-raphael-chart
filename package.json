@@ -1,6 +1,6 @@
 {
   "name": "react-raphael-chart",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "so easy, create charts with react-raphael!",
   "main": "lib/index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "raphael": "^2.2.6",
-    "react-raphael": "^0.7.2"
+    "react-raphael": "^0.7.3"
   },
   "devDependencies": {
     "babel": "^6.0.0",
