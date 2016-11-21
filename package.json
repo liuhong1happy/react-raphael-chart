@@ -11,11 +11,7 @@
     "docs": "webpack --devtool cheap-module-source-map --progress --color --profile --config webpack.docs.config.js --watch"
   },
   "dependencies": {
-    "console-polyfill": "^0.2.2",
-    "es5-shim": "^4.4.1",
     "raphael": "^2.2.6",
-    "react": "^0.14.8",
-    "react-dom": "^0.14.8",
     "react-raphael": "^0.6.0"
   },
   "devDependencies": {
@@ -39,7 +35,11 @@
     "react-transform-catch-errors": "^1.0.2",
     "react-transform-hmr": "^1.0.4",
     "style-loader": "^0.13.1",
-    "voronoi": "^1.0.0"
+    "voronoi": "^1.0.0",
+    "console-polyfill": "^0.2.2",
+    "es5-shim": "^4.4.1",
+    "react": "^0.14.8",
+    "react-dom": "^0.14.8",
   },
   "repository": {
     "type": "git",
