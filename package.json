@@ -1,8 +1,8 @@
 {
   "name": "react-raphael-chart",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "so easy, create charts with react-raphael!",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "test",
     "clean": "rm -rf ./lib",
