@@ -111,10 +111,31 @@ class ExtendLineChart extends React.Component{
     }
 }
 
+class ExtendPieChart extends React.Component{
+	constructor(props){
+		super(props);
+		this.state = {
+			data : pieSerise
+		}
+	}
+	componentDidMount(){
+		var data = this.state.data;
+		data.value = 90;
+		data.label = "90%";
+		this.setState({
+			data: data
+		})
+	}
+	render(){
+		return (<PieChart {...this.state.data} />)
+	}
+}	
+	
 ReactDOM.render(<div>
                 <SampleLineChart />
                 <ExtendLineChart />
 				<SampleBarChart />
 				<SamplePieChart />
+				<ExtendPieChart />
                 <SampleDoughnutChart />
                 </div>,document.getElementById("react-container"));

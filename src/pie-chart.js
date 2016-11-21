@@ -40,7 +40,7 @@ class PieChart extends React.Component{
 			}
 			percent ++;
 		}
-		if(data.length==100) callAnimate();
+		if(data.length==101) callAnimate();
 	}
 	render(){
 		var {width,height,background,center,radius,color,label} = this.props;
@@ -48,7 +48,7 @@ class PieChart extends React.Component{
 		
 		return (<Paper width={width} height={height}>
 				<Circle x={center.x} y={center.y} r={radius} attr={{"fill": background, "stroke": "none"}} />
-				<Path d={data.defaultPath} attr={{"fill": color, "stroke": "none"}} data={data.paths} load={this.handleLoaded.bind(this)}/>
+				<Path d={data.defaultPath} attr={{"fill": color, "stroke": "none"}} data={data.paths} load={this.handleLoaded.bind(this)} update={this.handleLoaded.bind(this)}/>
                 <Text x={center.x} y={center.y+radius/3} text={label} attr={{"fill": data.angle>180?"#fff": "#444"  , "stroke": "none"}} />
                 {
                     this.props.children
