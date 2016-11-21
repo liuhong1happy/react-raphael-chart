@@ -1,6 +1,6 @@
 {
   "name": "react-raphael-chart",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "so easy, create charts with react-raphael!",
   "main": "index.js",
   "scripts": {
@@ -39,7 +39,7 @@
     "console-polyfill": "^0.2.2",
     "es5-shim": "^4.4.1",
     "react": "^0.14.8",
-    "react-dom": "^0.14.8",
+    "react-dom": "^0.14.8"
   },
   "repository": {
     "type": "git",
