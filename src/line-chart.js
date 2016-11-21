@@ -87,7 +87,7 @@ class LineChart extends React.Component{
             <Axis  type="line" width={width} height={height} xAxis={xAxis} yAxis={yAxis} grid={grid} />
             {
                 serises.map(function(ele,pos){
-                    return (<LineSerise ref={"serise"+pos} width={width} height={height} serise={ele} xAxis={xAxis} yAxis={yAxis} />)
+                    return (<LineSerise key={pos} ref={"serise"+pos} width={width} height={height} serise={ele} xAxis={xAxis} yAxis={yAxis} />)
                 })
             }
             {

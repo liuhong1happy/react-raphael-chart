@@ -51,7 +51,7 @@ class BarSerise extends React.Component{
         return (<Set>
 			{
 				data.map(function(ele,pos){
-					return (<Rect x={ele._x - ele._width/2} y={defaultY} width={ele._width} height={0} 
+					return (<Rect key={pos} x={ele._x - ele._width/2} y={defaultY} width={ele._width} height={0} 
 							attr={{"fill":serise.color}} 
 							animate={Raphael.animation({"y":ele._y,"height":ele._height},500,"<>")} />)
 				})
@@ -87,7 +87,7 @@ class BarChart extends React.Component{
             <Axis type="bar" width={width} height={height} xAxis={xAxis} yAxis={yAxis} grid={grid} />
             {
                 serises.map(function(ele,pos){
-                    return (<BarSerise ref={"serise"+pos} index={pos} count={serises.length+1} width={width} height={height} 
+                    return (<BarSerise key={pos} ref={"serise"+pos} index={pos} count={serises.length+1} width={width} height={height} 
 							serise={ele} xAxis={xAxis} yAxis={yAxis} />)
                 })
             }

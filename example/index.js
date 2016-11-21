@@ -104,7 +104,7 @@ class ExtendLineChart extends React.Component{
         return (<LineChart ref="chart" width={500} height={360} serises={[lineSerise]}>
                 {
 					cells.map(function(ele,pos){
-						return (<Cell data={ele} label={"test"}/>)
+						return (<Cell key={pos} data={ele} label={"test"}/>)
 					})
 				}
             </LineChart>)

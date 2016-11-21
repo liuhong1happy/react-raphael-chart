@@ -29,20 +29,6 @@ class DoughnutChart extends React.Component{
 			angle: angle
 		}
 	}
-	handleLoaded(path){
-		var data = path.items;
-		var percent = 0;
-		var {easing} = this.props;
-		easing = easing || function() { return 10;}
-		var callAnimate = function(){
-			if(percent<=100) {
-				var animate = Raphael.animation({path: data[percent]}, easing(percent) , "linear",callAnimate);
-				path.animate(animate);
-			}
-			percent ++;
-		}
-		callAnimate();
-	}
 	render(){
 		var {center,radius,label,thickness} = this.props;
 		var data = this.getPathDataByAngle();

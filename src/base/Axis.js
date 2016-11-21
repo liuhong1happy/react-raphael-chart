@@ -18,12 +18,12 @@ class Grid extends React.Component{
 		return (<Set>
 			{
 				xValues.map(function(ele,pos){
-					return (<Line x1={ele.x} y1={yMin} x2={ele.x} y2={yMax} attr={{"stroke":color,"stroke-width":thickness}}/>)
+					return (<Line key={pos} x1={ele.x} y1={yMin} x2={ele.x} y2={yMax} attr={{"stroke":color,"stroke-width":thickness}}/>)
 				})
 			}
 			{
 				yValues.map(function(ele,pos){
-					return (<Line x1={xMin} y1={ele.y} x2={xMax} y2={ele.y} attr={{"stroke":color,"stroke-width":thickness}}/>)
+					return (<Line key={pos} x1={xMin} y1={ele.y} x2={xMax} y2={ele.y} attr={{"stroke":color,"stroke-width":thickness}}/>)
 				})
 			}
 		</Set>)
@@ -37,12 +37,12 @@ class YAxis extends React.Component{
 		return (<Set>
 			{
 				yValues.map(function(ele,pos){
-					return (<Line x1={ele.x1} y1={ele.y} x2={ele.x2} y2={ele.y} attr={{"stroke":color,"stroke-width":thickness}}/>)
+					return (<Line key={pos} x1={ele.x1} y1={ele.y} x2={ele.x2} y2={ele.y} attr={{"stroke":color,"stroke-width":thickness}}/>)
 				})
 			}
 			{
 				yValues.map(function(ele,pos){
-					return (<Text x={ele.x1-12} y={ele.y} text={ele.label} attr={{"fill":ele.color,"text-anchor":"end","font-size": 14}} />)
+					return (<Text key={pos} x={ele.x1-12} y={ele.y} text={String(ele.label)} attr={{"fill":ele.color,"text-anchor":"end","font-size": 14}} />)
 				})
 			}
 		</Set>)				
@@ -64,7 +64,7 @@ class XAxis extends React.Component{
 				xValues.map(function(ele,pos){
 					var x = ele.x;
 					if(type=="bar") x = ele.x + ele.interval /2;
-					return (<Text key={pos} x={x} y={ele.y2 + 12} text={ele.label} attr={{"fill":ele.color,"font-size": 14}}/>)
+					return (<Text key={pos} x={x} y={ele.y2 + 12} text={String(ele.label)} attr={{"fill":ele.color,"font-size": 14}}/>)
 				})
 			}
 		</Set>)

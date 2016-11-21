@@ -40,7 +40,7 @@ class PieChart extends React.Component{
 			}
 			percent ++;
 		}
-		callAnimate();
+		if(data.length==100) callAnimate();
 	}
 	render(){
 		var {width,height,background,center,radius,color,label} = this.props;
