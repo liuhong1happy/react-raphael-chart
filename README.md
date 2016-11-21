@@ -1,5 +1,8 @@
 # react-raphael-chart
 
+[![Version](https://img.shields.io/npm/v/react-raphael-chart.svg)](https://www.npmjs.com/package/react-raphael-chart)
+[![Downloads](https://img.shields.io/npm/dt/react-raphael-chart.svg)](https://www.npmjs.com/package/react-raphael-chart)
+
 so easy, create charts with react-raphael!
 
 ## Develop
