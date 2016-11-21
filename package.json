@@ -1,6 +1,6 @@
 {
   "name": "react-raphael-chart",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "so easy, create charts with react-raphael!",
   "main": "lib/index.js",
   "scripts": {

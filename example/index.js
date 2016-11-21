@@ -22,8 +22,8 @@ var pieSerise = {
 	background: "#DDD",
 	radius: 48,
 	center: { x: 50,y: 50},
-	label: "98%",
-	value: 98,
+	label: "0%",
+	value: 0,
 	total: 100,
 	width: 100,
 	height: 100

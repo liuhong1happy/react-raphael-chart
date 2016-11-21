@@ -5,6 +5,10 @@
 
 so easy, create charts with react-raphael!
 
+## Install
+
+	npm install --save react-raphael-chart
+
 ## Develop
 
 1. clone the repository

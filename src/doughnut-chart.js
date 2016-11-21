@@ -7,9 +7,12 @@ class DoughnutChart extends React.Component{
 		var rad = Math.PI / 180;
 		var {center,radius,color, total, value,label} = this.props;
 		
+		if(total<value) throw new error("total is not smaller than value");
+		if(total==0) throw new error("the total is not zero");
+		
 		var angle = value / total * 360;
 
-		if(angle==0)  return { defaultPath: [], animatePath: [] };
+		if(angle==0)  return { defaultPath: [], paths: [], angle: 0 };
 		if(angle==360) angle = 359.9;
 		var paths = [];
 		var x1 = center.x;
