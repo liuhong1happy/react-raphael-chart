@@ -38,10 +38,10 @@ class BarSerise extends React.Component{
 		return pathData;
 	}
     getDrawPoints(){
-	   var { width,height,serise,xAxis,yAxis,index,count} = this.props;
+	   var { width,height,serise,xAxis,yAxis,index,count,barWidth,fontSize} = this.props;
 		serise._index = index; 
 		serise._count = count;
-       var data = Utils.getBarData({width,height,xAxis,yAxis},serise);
+       var data = Utils.getBarData({width,height,xAxis,yAxis,barWidth,fontSize},serise);
        return data.Values;
     }
 	handleMouseOut(){
