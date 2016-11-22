@@ -26,7 +26,9 @@ var pieSerise = {
 	value: 0,
 	total: 100,
 	width: 100,
-	height: 100
+	height: 100,
+	style: {width: 150,height: 150, textAlign: "center"},
+	onClick: function(e){ console.log(e); }
 }
 
 const SampleLineChart = ()=> <LineChart width={500} height={360} serises={[lineSerise]} />;

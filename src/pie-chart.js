@@ -43,20 +43,19 @@ class PieChart extends React.Component{
 		if(data.length==101) callAnimate();
 	}
 	render(){
-		var {width,height,background,center,radius,color,label} = this.props;
+		var {width,height,background,center,radius,color,label,position,fontsize, style,className,children,...others} = this.props;
 		var data = this.getPathDataByAngle();
-		
-		return (<Paper width={width} height={height}>
+		var textPosition = { x: position ? position.x : center.x, y: position ? position.y : center.y+radius/3}
+		return (<Paper width={width} height={height} container={{ "style": style, "className": className || "pie-chart",...others}}>
 				<Circle x={center.x} y={center.y} r={radius} attr={{"fill": background, "stroke": "none"}} />
 				<Path d={data.defaultPath} attr={{"fill": color, "stroke": "none"}} data={data.paths} load={this.handleLoaded.bind(this)} update={this.handleLoaded.bind(this)}/>
-                <Text x={center.x} y={center.y+radius/3} text={label} attr={{"fill": data.angle>180?"#fff": "#444"  , "stroke": "none"}} />
+                <Text x={textPosition.x} y={textPosition.y} text={label} attr={{"fill": data.angle>180?"#fff": "#444" ,"font-size": fontsize || 10 , "stroke": "none"}} />
                 {
-                    this.props.children
+                    children
                 }
 				</Paper>)
 	}
 }
-
 
 PieChart.propTypes = { 
 	width: React.PropTypes.number, 
@@ -67,7 +66,10 @@ PieChart.propTypes = {
 	value:  React.PropTypes.number,
     label: React.PropTypes.string,
     total: React.PropTypes.number,
-    radius:  React.PropTypes.number
+    radius:  React.PropTypes.number,
+	style: React.PropTypes.object, 
+	className: React.PropTypes.string, 
+	fontsize: React.PropTypes.number
 };
 PieChart.defaultProps = { 
 	color: "#74C93C",
@@ -78,7 +80,10 @@ PieChart.defaultProps = {
 	value: 98,
 	total: 100,
 	width: 100,
-	height: 100
+	height: 100,
+	style: {},
+	fontsize: 14,
+	className: "doughnut-chart"
 };
 
 module.exports = PieChart;

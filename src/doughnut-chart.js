@@ -30,12 +30,12 @@ class DoughnutChart extends React.Component{
 		}
 	}
 	render(){
-		var {center,radius,label,thickness} = this.props;
+		var {center,radius,label,thickness,position,fontsize, style,className} = this.props;
 		var data = this.getPathDataByAngle();
-		
+		var textPosition = { x: position ? position.x : center.x, y: position ? position.y : center.y+radius/3}
 		return (<PieChart {...this.props}>
-                <Circle x={center.x} y={center.y} r={radius-thickness} attr={{"fill": "#fff", "stroke": "none"}} />
-                <Text x={center.x} y={center.y+radius/3} text={label} attr={{"fill": "#444" , "stroke": "none"}} />
+                <Circle x={center.x} y={center.y} r={radius-thickness} attr={{ "fill": "#fff", "stroke": "none" }} />
+                <Text x={textPosition.x} y={textPosition.y} text={label} attr={{ "fill": "#444", "font-size": fontsize || 10 , "stroke": "none" }} />
 				</PieChart>)
 	}
 }
@@ -50,7 +50,10 @@ DoughnutChart.propTypes = {
     label: React.PropTypes.string,
     total: React.PropTypes.number,
     radius:  React.PropTypes.number,
-    thickness: React.PropTypes.number
+    thickness: React.PropTypes.number,
+	style: React.PropTypes.object, 
+	className: React.PropTypes.string, 
+	fontsize: React.PropTypes.number
 };
 
 DoughnutChart.defaultProps = { 
@@ -63,7 +66,10 @@ DoughnutChart.defaultProps = {
 	total: 100,
 	width: 100,
 	height: 100,
-    thickness: 3
+    thickness: 3,
+	style: {},
+	fontsize: 14,
+	className: "doughnut-chart"
 };
 
 module.exports = DoughnutChart;
