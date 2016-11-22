@@ -2,6 +2,10 @@ const React = require('react');
 const { Raphael, Paper, Set, Text, Rect,Path, Circle } = require('react-raphael');
 
 class PieChart extends React.Component{
+	constructor(props){
+		super(props);
+		this.repeatCount = 0;
+	}
 	getPathDataByAngle(){
 		var rad = Math.PI / 180;
 		var {center,radius,color, total, value,label} = this.props;
@@ -31,16 +35,24 @@ class PieChart extends React.Component{
 	handleLoaded(path){
 		var data = path.items;
 		var percent = 0;
-		var {easing} = this.props;
+		var { easing, animate, repeat } = this.props;
 		easing = easing || function() { return 10;}
 		var callAnimate = function(){
+			
 			if(percent<=100) {
 				var animate = Raphael.animation({path: data[percent]}, easing(percent) , "linear",callAnimate);
 				path.animate(animate);
 			}
 			percent ++;
 		}
-		if(data.length==101) callAnimate();
+		
+		if(data.length==101){
+			if(repeat && this.repeatCount==1) return false;
+			if(!animate) return false;
+			path.stop();
+			callAnimate();
+			this.repeatCount ++;
+		} 
 	}
 	render(){
 		var {width,height,background,center,radius,color,label,position,fontsize, style,className,children,...others} = this.props;
@@ -69,7 +81,9 @@ PieChart.propTypes = {
     radius:  React.PropTypes.number,
 	style: React.PropTypes.object, 
 	className: React.PropTypes.string, 
-	fontsize: React.PropTypes.number
+	fontsize: React.PropTypes.number,
+	animate: React.PropTypes.bool,
+	repeat: React.PropTypes.bool
 };
 PieChart.defaultProps = { 
 	color: "#74C93C",
@@ -83,7 +97,9 @@ PieChart.defaultProps = {
 	height: 100,
 	style: {},
 	fontsize: 14,
-	className: "doughnut-chart"
+	className: "doughnut-chart",
+	animate: true,
+	repeat: false
 };
 
 module.exports = PieChart;

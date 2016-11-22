@@ -27,6 +27,8 @@ so easy, create charts with react-raphael!
 - height `number` width of PieChart
 - style `object` style of PieChart's container
 - className `string` className of PieChart's container
+- animate `boolean` animation of PieChart
+- repeat `boolean` repeat the animation
 
 #### DoughnutChart
 
@@ -45,7 +47,8 @@ so easy, create charts with react-raphael!
 - height `number` width of DoughnutChart
 - style `object` style of DoughnutChart's container
 - className `string` className of DoughnutChart's container
-
+- animate `boolean` animation of DoughnutChart
+- repeat `boolean` repeat the animation
 
 ## Develop
 
