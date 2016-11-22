@@ -44,16 +44,32 @@ class BarSerise extends React.Component{
        var data = Utils.getBarData({width,height,xAxis,yAxis},serise);
        return data.Values;
     }
+	handleMouseOut(){
+		var data = this.items;
+		this.attr({"fill": data.color});
+		this.set[1].hide();
+	}
+	handleMouseOver(){
+		var data = this.items;
+		data.color = this.attr("fill");
+		this.attr({"fill": data.hoverColor});
+		this.set[1].show();
+	}
     render(){
 	    var {serise,height,xAxis} = this.props;
 		var data = this.getDrawPoints();
 		var defaultY = height - xAxis.height + 15;
+		var handleMouseOut = this.handleMouseOut;
+		var handleMouseOver = this.handleMouseOver;
         return (<Set>
 			{
 				data.map(function(ele,pos){
-					return (<Rect key={pos} x={ele._x - ele._width/2} y={defaultY} width={ele._width} height={0} 
-							attr={{"fill":serise.color}} 
-							animate={Raphael.animation({"y":ele._y,"height":ele._height},500,"<>")} />)
+					return (<Set key={pos}>
+						<Rect key={"path"+pos} x={ele._x - ele._width/2} y={defaultY} width={ele._width} height={0} data={{...serise}}
+							attr={{"fill": ele.color || serise.color,"stroke": "none"}} mouseout={handleMouseOut} mouseover={handleMouseOver}
+							animate={Raphael.animation({"y":ele._y,"height":ele._height},500,"<>")} />
+						<Text key={"text"-pos} x={ele._x} y={ele._y-5} text={String(ele.y)} attr={{"fill": serise.hoverColor}} hide={true}/>
+						</Set>)
 				})
 			}
         </Set>)

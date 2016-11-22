@@ -11,9 +11,10 @@ var Utils = {
 		var xInterval = chartW / (xAxis.max - xAxis.min );
 		
 		for(var i=0;i<data.length;i++){
-			data[i]._x = xInterval * data[i].x + axisW;
+			data[i]._x = xInterval * data[i].x + axisW - 15;
 			data[i]._y = (chartH - yInterval * data[i].y) + 15;
 			data[i]._label = !!formatter ? formatter(data[i]) : (data[i].label || data[i].x);
+			data[i].color = data[i].color || serise.color;
 		}
 
 		return {
@@ -32,7 +33,7 @@ var Utils = {
 		var yValues = [];
 		for(var i=xAxis.min;i<xAxis.max;i=i+xAxis.interval){
 			xValues.push({
-				x: (i-xAxis.min)*xInterval + axisW,
+				x: (i-xAxis.min)*xInterval + axisW - 15,
 				y1: chartH +15,
 				y2: chartH + 22,
 				label: !!xAxis.formatter ? (type=="bar"?xAxis.formatter(i+1):xAxis.formatter(i)) : (type=="bar"?i+1:i),
@@ -43,8 +44,8 @@ var Utils = {
 		for(var i=yAxis.min;i<=yAxis.max;i=i+yAxis.interval){
 			yValues.push({
 				y: (chartH - (i-yAxis.min)*yInterval) + 15,
-				x1: axisW,
-				x2: axisW -7,
+				x1: axisW - 15,
+				x2: axisW - 22,
 				label: !!yAxis.formatter ? yAxis.formatter(i) : i,
 				color: xAxis.color || "#737373",
 				interval: yInterval
@@ -54,8 +55,8 @@ var Utils = {
 		return {
 			xValues: xValues,
 			yValues: yValues,
-			xMin: axisW,
-			xMax: width,
+			xMin: axisW-15,
+			xMax: width-15,
 			yMin: 15,
 			yMax: chartH + 15
 		}
@@ -97,11 +98,12 @@ var Utils = {
 		var xInterval = chartW / (xAxis.max - xAxis.min );
 
 		for(var i=0;i<data.length;i++){
-			data[i]._width = (xInterval / (_count-1)) > 20 ? (xInterval / (_count-1)) - 8 : 5;
-			data[i]._x = xInterval * (data[i].x- xAxis.interval) + axisW + (xInterval / _count)*(_index+1);
+			data[i]._width = (xInterval / (_count-1)) > 20 ? (xInterval / _count) - 2 : 5;
+			data[i]._x = xInterval * (data[i].x- xAxis.interval) + (axisW - 15) + (xInterval / _count)*(_index+1);
 			data[i]._y = (chartH - yInterval * data[i].y) + 15;
 			data[i]._label = !!formatter ? formatter(data[i]) : (data[i].label || data[i].x);
 			data[i]._height = yInterval * data[i].y;
+			data[i].color = data[i].color || serise.color;
 		}
 
 		return {

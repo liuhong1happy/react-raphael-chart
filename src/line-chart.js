@@ -82,8 +82,8 @@ class LineChart extends React.Component{
         return points;
     }
     render(){
-        var {width,height,serises,xAxis,yAxis,grid} = this.props;
-        return (<Paper width={width} height={height}>
+        var {width,height,serises,xAxis,yAxis,grid,children,...others} = this.props;
+        return (<Paper width={width} height={height} {...others}>
             <Axis  type="line" width={width} height={height} xAxis={xAxis} yAxis={yAxis} grid={grid} />
             {
                 serises.map(function(ele,pos){
@@ -91,7 +91,7 @@ class LineChart extends React.Component{
                 })
             }
             {
-                this.props.children
+                children
             }
         </Paper>)
     }

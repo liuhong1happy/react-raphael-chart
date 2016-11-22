@@ -1,13 +1,6 @@
 const React = require('react');
 const Utils = require('../utils');
-const { Path,Set,Text } = require('react-raphael')
-
-class Line extends React.Component{
-	render(){
-		var {x1,x2,y1,y2,...others} = this.props;
-		return <Path d={[ "M",x1,y1, "L",x2,y2 ]} {...others} />
-	}
-}
+const { Path,Set,Text, Line } = require('react-raphael')
 
 class Grid extends React.Component{
 	render(){
