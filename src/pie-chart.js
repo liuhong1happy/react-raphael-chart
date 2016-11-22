@@ -47,11 +47,16 @@ class PieChart extends React.Component{
 		}
 		
 		if(data.length==101){
-			if(!repeat && this.repeatCount==1) return false;
 			if(!animate) return false;
-			path.stop();
-			callAnimate();
-			this.repeatCount ++;
+			if(!repeat && this.repeatCount>=1) {
+				percent=100;
+				path.attr({path: data[percent]});
+				this.repeatCount ++;
+			}else{
+				path.stop();
+				callAnimate();
+				this.repeatCount ++;
+			}
 		} 
 	}
 	render(){
