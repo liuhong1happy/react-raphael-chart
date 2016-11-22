@@ -88,7 +88,7 @@ var Utils = {
 		return arr;
 	},
 	getBarData: function(options,serise){
-        var {width,height,xAxis,yAxis} = options;
+        var {width,height,xAxis,yAxis,barWidth} = options;
 		var {data,formatter,_count,_index} = serise;
 		var axisW = yAxis.width || 60;
 		var axisH = xAxis.height || 60;
@@ -96,9 +96,11 @@ var Utils = {
 		var chartH = height - axisH;
 		var yInterval = chartH / ( yAxis.max - yAxis.min );
 		var xInterval = chartW / (xAxis.max - xAxis.min );
-
+		
+		var	max = barWidth || 20;
+		
 		for(var i=0;i<data.length;i++){
-			data[i]._width = (xInterval / (_count-1)) > 20 ? (xInterval / _count) - 2 : 5;
+			data[i]._width = (xInterval / _count)  > max ? barWidth || (xInterval / _count -2) : (xInterval / _count -2);
 			data[i]._x = xInterval * (data[i].x- xAxis.interval) + (axisW - 15) + (xInterval / _count)*(_index+1);
 			data[i]._y = (chartH - yInterval * data[i].y) + 15;
 			data[i]._label = !!formatter ? formatter(data[i]) : (data[i].label || data[i].x);

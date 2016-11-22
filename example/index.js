@@ -19,14 +19,14 @@ var lineSerise2 = {
 var barSerise = {
 	color: "#74C93C",
 	hoverColor: "#FF7E60",
-	thickness: 2,
+	maxWidth: 20,
 	data: [{x:1,y:83},{x:2,y:80,color: "#03A9F4"},{x:3,y:45},{x:4,y:82},{x:5,y:75},{x:6,y:95},{x:7,y:100},{x:8,y:98},{x:9,y:92},{x:10,y:94}]
 }
 
 var barSerise2 = {
 	color: "#DDDDDD",
 	hoverColor: "#FF7E60",
-	thickness: 2,
+	maxWidth: 20,
 	data: [{x:1,y:83},{x:2,y:80},{x:3,y:45},{x:4,y:82},{x:5,y:75},{x:6,y:95},{x:7,y:100},{x:8,y:98},{x:9,y:92},{x:10,y:94}]
 }
 

@@ -56,7 +56,7 @@ class BarSerise extends React.Component{
 		this.set[1].show();
 	}
     render(){
-	    var {serise,height,xAxis} = this.props;
+	    var {serise,height,xAxis,fontSize} = this.props;
 		var data = this.getDrawPoints();
 		var defaultY = height - xAxis.height + 15;
 		var handleMouseOut = this.handleMouseOut;
@@ -68,7 +68,7 @@ class BarSerise extends React.Component{
 						<Rect key={"path"+pos} x={ele._x - ele._width/2} y={defaultY} width={ele._width} height={0} data={{...serise}}
 							attr={{"fill": ele.color || serise.color,"stroke": "none"}} mouseout={handleMouseOut} mouseover={handleMouseOver}
 							animate={Raphael.animation({"y":ele._y,"height":ele._height},500,"<>")} />
-						<Text key={"text"-pos} x={ele._x} y={ele._y-5} text={String(ele.y)} attr={{"fill": serise.hoverColor}} hide={true}/>
+						<Text key={"text"-pos} x={ele._x} y={ele._y-fontSize/2} text={String(ele.y)} attr={{"fill": serise.hoverColor,"font-size": fontSize}} hide={true}/>
 						</Set>)
 				})
 			}
@@ -82,11 +82,11 @@ class BarChart extends React.Component{
     }
     getSerisePointsByIndex(index){
         var points = [];
-		var { serises,width,height,xAxis,yAxis } = this.props;
+		var { serises,width,height,xAxis,yAxis,barWidth,fontSize } = this.props;
 		var serise = serises[index];
 		serise._index = index; 
 		serise._count = serises.length+1;
-        var data = Utils.getBarData({width,height,xAxis,yAxis},serise);
+        var data = Utils.getBarData({width,height,xAxis,yAxis,barWidth,fontSize},serise);
         return data.Values;
     }
     getSeriseAllPoints(){
@@ -98,12 +98,12 @@ class BarChart extends React.Component{
         return points;
     }
     render(){
-        var {width,height,serises,xAxis,yAxis,grid} = this.props;
+        var {width,height,serises,xAxis,yAxis,grid,fontSize,barWidth} = this.props;
         return (<Paper width={width} height={height}>
             <Axis type="bar" width={width} height={height} xAxis={xAxis} yAxis={yAxis} grid={grid} />
             {
                 serises.map(function(ele,pos){
-                    return (<BarSerise key={pos} ref={"serise"+pos} index={pos} count={serises.length+1} width={width} height={height} 
+                    return (<BarSerise key={pos} ref={"serise"+pos} index={pos} count={serises.length+1} width={width} height={height} barWidth={barWidth} fontSize={fontSize}
 							serise={ele} xAxis={xAxis} yAxis={yAxis} />)
                 })
             }
@@ -120,7 +120,9 @@ BarChart.propTypes = {
 	serises: React.PropTypes.array, 
 	xAxis: React.PropTypes.object, 
 	yAxis: React.PropTypes.object, 
-	grid:  React.PropTypes.object
+	grid:  React.PropTypes.object,
+	barWidth: React.PropTypes.number,
+	fontSize: React.PropTypes.number
 };
 BarChart.defaultProps = { 
 	width: 600, 
@@ -145,7 +147,9 @@ BarChart.defaultProps = {
 		thickness: 1,
 		showYGrid: false,
 		showXGrid: true
-	} 
+	},
+	barWidth: 20,
+	fontSize: 14
 };
                 
 module.exports = BarChart;
