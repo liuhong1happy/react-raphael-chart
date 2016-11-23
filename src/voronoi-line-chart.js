@@ -86,7 +86,7 @@ class VoronoiLineChart extends React.Component{
         return (<LineChart ref="chart" {...this.props}>
                 {
 					cells.map(function(ele,pos){
-						return (<Cell key={pos} data={ele} label={"test"} color={ ele.site.color }/>)
+						return (<Cell key={pos+"-"+ele.site.x+"-"+ele.site.y} data={ele} label={"test"} color={ ele.site.color } />)
 					})
 				}
             </LineChart>)
