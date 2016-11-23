@@ -2,6 +2,7 @@ const Voronoi = require('voronoi');
 const React = require('react');
 const LineChart = require('./line-chart');
 const { Set, Text, Path, Circle } = require('react-raphael');
+const Utils = require('./utils');
 
 class Cell extends React.Component{
 	handleMouseOver(){
@@ -43,9 +44,18 @@ class Cell extends React.Component{
 }
 
 class VoronoiLineChart extends React.Component{
+	getSeriseAllPoints(){
+		var {  width,height,serises,xAxis,yAxis } = this.props;
+		var points = [];
+		for(var i=0;i<serises.length;i++){
+			var data = Utils.getLineData({width,height,xAxis,yAxis}, serises[i]);
+			points = points.concat(data.Values);
+		}
+		return points;
+	}
 	compute(){
 		var { width, height } = this.props;
-        var data = this.refs.chart.getSeriseAllPoints();
+        var data = this.getSeriseAllPoints();
 		var points = [];
 		for(var i=0;i<data.length;i++){
 			points.push({
@@ -82,5 +92,37 @@ class VoronoiLineChart extends React.Component{
             </LineChart>)
     }
 }
-
+VoronoiLineChart.propTypes = { 
+	width: React.PropTypes.number, 
+	height: React.PropTypes.number,
+	serises: React.PropTypes.array, 
+	xAxis: React.PropTypes.object, 
+	yAxis: React.PropTypes.object, 
+	grid:  React.PropTypes.object
+};
+VoronoiLineChart.defaultProps = { 
+	width: 600, 
+	height: 400, 
+	serises: [], 
+	xAxis: {
+		min: 0,
+		max: 10,
+		interval: 1,
+		formatter: null,
+		height: 60
+	}, 
+	yAxis: {
+		min: 0,
+		max: 100,
+		interval: 10,
+		formatter: null,
+		width: 60
+	}, 
+	grid:{
+		color: "#ccc",
+		thickness: 1,
+		showYGrid: false,
+		showXGrid: true
+	} 
+};
 module.exports = VoronoiLineChart;
