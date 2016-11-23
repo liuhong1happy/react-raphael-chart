@@ -44,8 +44,14 @@ class Cell extends React.Component{
 }
 
 class VoronoiLineChart extends React.Component{
-	getSeriseAllPoints(){
-		var {  width,height,serises,xAxis,yAxis } = this.props;
+	constructor(props){
+		super(props);
+		this.state = {
+			result: {}
+		}
+	}
+	getSeriseAllPoints(props){
+		var {  width,height,serises,xAxis,yAxis } = props;
 		var points = [];
 		for(var i=0;i<serises.length;i++){
 			var data = Utils.getLineData({width,height,xAxis,yAxis}, serises[i]);
@@ -53,9 +59,9 @@ class VoronoiLineChart extends React.Component{
 		}
 		return points;
 	}
-	compute(){
-		var { width, height } = this.props;
-        var data = this.getSeriseAllPoints();
+	compute(props){
+		var { width, height } = props;
+        var data = this.getSeriseAllPoints(props);
 		var points = [];
 		for(var i=0;i<data.length;i++){
 			points.push({
@@ -69,26 +75,29 @@ class VoronoiLineChart extends React.Component{
 		var bbox = {xl: 44, xr: width + 1, yt: 14, yb: height- 14}; 
 		var diagram = voronoi.compute(points, bbox);
 
-		this.result = diagram;
+		return diagram;
 	}
     componentDidMount(){
-		this.compute();
 		this.setState({
-			update: true
+			result: this.compute(this.props)
 		})
     }
-	componentWillUpdate(){
-		this.compute();
+	componentWillReceiveProps(nextProps){
+		this.setState({
+			result: this.compute(nextProps)
+		})
 	}
     render(){
-		this.result = this.result || {};
-		var cells = this.result.cells || [];
+		var result = this.state.result || {};
+		var cells = result.cells || [];
         return (<LineChart ref="chart" {...this.props}>
+				<Set ref="set">
                 {
 					cells.map(function(ele,pos){
 						return (<Cell key={pos+"-"+ele.site.x+"-"+ele.site.y} data={ele} label={"test"} color={ ele.site.color } />)
 					})
 				}
+				</Set>
             </LineChart>)
     }
 }

@@ -9,11 +9,21 @@ var lineSerise = {
 	thickness: 2,
 	data: [{x:0,y:90},{x:1,y:83},{x:2,y:80},{x:3,y:45},{x:4,y:82},{x:5,y:75},{x:6,y:95},{x:7,y:100},{x:8,y:98},{x:9,y:92},{x:10,y:94}]
 }
-
+var lineSerise1 = {
+	color: "#9e9298",
+	thickness: 2,
+	data: [{x:0,y:73},{x:1,y:68},{x:2,y:71},{x:3,y:55},{x:4,y:89},{x:5,y:91},{x:6,y:72},{x:7,y:76},{x:8,y:78},{x:9,y:78},{x:10,y:90}]
+}
 var lineSerise2 = {
 	color: "#FF7E60",
 	thickness: 2,
 	data: [{x:0,y:93},{x:1,y:78},{x:2,y:81},{x:3,y:60},{x:4,y:99,color: "#03A9F4"},{x:5,y:71},{x:6,y:85},{x:7,y:95},{x:8,y:99},{x:9,y:100},{x:10,y:88}]
+}
+
+var lineSerise3 = {
+	color: "#9802fe",
+	thickness: 2,
+	data: [{x:0,y:83},{x:1,y:68},{x:2,y:71},{x:3,y:50},{x:4,y:89,color: "#03A9F4"},{x:5,y:71},{x:6,y:72},{x:7,y:76},{x:8,y:78},{x:9,y:78},{x:10,y:90}]
 }
 
 var barSerise = {
@@ -45,7 +55,33 @@ var pieSerise = {
 }
 
 const SampleLineChart = ()=> <LineChart width={500} height={360} serises={[lineSerise]} />;
-const ExtendLineChart = ()=> <VoronoiLineChart width={500} height={360} serises={[lineSerise,lineSerise2]} />
+class ExtendLineChart extends React.Component{
+	constructor(props){
+		super(props);
+		this.state = {
+			serises: []
+		}
+	}
+	componentDidMount(){
+		var _self = this;
+		setTimeout(function(){
+			setInterval(function(){
+				_self.setState({
+					serises: [lineSerise,lineSerise1]
+				})
+			},4000)
+		},2000)
+		setInterval(function(){
+			_self.setState({
+				serises: [lineSerise2,lineSerise3]
+			})
+		},4000)
+	}
+	render(){
+		return (<VoronoiLineChart width={500} height={360} serises={this.state.serises} />)
+	}
+}
+
 const SampleBarChart = ()=> <BarChart width={500} height={360} serises={[barSerise,barSerise2]} />;
 const SamplePieChart = () => <PieChart {...pieSerise} />;
 const SampleDoughnutChart = () => <DoughnutChart {...pieSerise} />;
