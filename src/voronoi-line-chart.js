@@ -35,7 +35,7 @@ class Cell extends React.Component{
 		
 		return (<Set>
 			<Set>
-				<Text x={site.x} y={site.y+10} text={String(site.v)} attr={{"fill": color}} hide={true} translate={{x:0,y:10}} />
+				<Text x={site.x} y={site.y} text={String(site.v)} attr={{"fill": color}} hide={true} translate={{x:0,y:10}} />
 				<Circle x={site.x} y={site.y} r={3} attr={{"fill":color,"stroke":"#fff"}} />
 			</Set>
 			<Path d={path} attr={{"fill":"none","stroke":"none"}}  mouseover={this.handleMouseOver} mouseout={this.handleMouseOut}/>
