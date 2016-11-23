@@ -50,6 +50,7 @@ class VoronoiLineChart extends React.Component{
         }
     }
     componentDidMount(){
+		var { width, height } = this.props;
         var data = this.refs.chart.getSeriseAllPoints();
 		var points = [];
 		for(var i=0;i<data.length;i++){
@@ -61,7 +62,7 @@ class VoronoiLineChart extends React.Component{
 			})
 		}
 		var voronoi = new Voronoi();
-		var bbox = {xl: 44, xr: 501, yt: 14, yb: 316}; 
+		var bbox = {xl: 44, xr: width + 1, yt: 14, yb: height- 14}; 
 		var diagram = voronoi.compute(points, bbox);
 
 		this.setState({
