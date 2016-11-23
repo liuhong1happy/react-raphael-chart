@@ -71,16 +71,16 @@ class ExtendLineChart extends React.Component{
 				})
 			},4000)
 		},2000)
-		setInterval(function(){
-			_self.setState({
-				serises: [lineSerise,lineSerise1]
-			})
-		},4000)
 //		setInterval(function(){
 //			_self.setState({
-//				serises: [lineSerise2,lineSerise3]
+//				serises: [lineSerise,lineSerise1]
 //			})
 //		},4000)
+		setInterval(function(){
+			_self.setState({
+				serises: [lineSerise2,lineSerise3]
+			})
+		},4000)
 	}
 	render(){
 		return (<VoronoiLineChart width={500} height={360} serises={this.state.serises} />)
