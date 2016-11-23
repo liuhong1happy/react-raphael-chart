@@ -1,6 +1,6 @@
 {
   "name": "react-raphael-chart",
-  "version": "0.8.0-rc15",
+  "version": "0.8.0-rc16",
   "description": "so easy, create charts with react-raphael!",
   "main": "lib/index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "raphael": "^2.2.6",
-    "react-raphael": "^0.8.0-rc3",
+    "react-raphael": "^0.8.0-rc4",
 	"voronoi": "^1.0.0"
   },
   "devDependencies": {
