@@ -43,7 +43,7 @@ class Cell extends React.Component{
 }
 
 class VoronoiLineChart extends React.Component{
-    componentDidMount(){
+	compute(){
 		var { width, height } = this.props;
         var data = this.refs.chart.getSeriseAllPoints();
 		var points = [];
@@ -60,10 +60,16 @@ class VoronoiLineChart extends React.Component{
 		var diagram = voronoi.compute(points, bbox);
 
 		this.result = diagram;
+	}
+    componentDidMount(){
+		this.compute();
 		this.setState({
 			update: true
 		})
     }
+	componentWillUpdate(){
+		this.compute();
+	}
     render(){
 		this.result = this.result || {};
 		var cells = this.result.cells || [];
