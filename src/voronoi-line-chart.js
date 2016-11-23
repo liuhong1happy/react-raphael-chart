@@ -56,7 +56,7 @@ class VoronoiLineChart extends React.Component{
 			points.push({
 				x: data[i]._x,
 				y: data[i]._y,
-				v: data[i].y,
+				v: data[i]._label,
 				color: data[i].color
 			})
 		}
