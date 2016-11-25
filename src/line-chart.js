@@ -44,11 +44,18 @@ class LineSerise extends React.Component{
     }
     render(){
 	    var {serise} = this.props;
+		
+		if(serise.data.length==0){
+			return (<Set></Set>)
+		}
+		
 		var data = this.getDrawPoints();
 		var first = {
 			x:data[0]?data[0]._x:0,
 			y:data[0]?data[0]._y:0
 		}
+		
+		
 		if(data.length==1){
 			return (<Circle r="4" x={first.x} y={first.y} attr={{"fill": serise.color,"stroke":serise.color,"stroke-width":serise.thickness}} />)
 		}

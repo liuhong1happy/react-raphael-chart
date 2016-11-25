@@ -17,7 +17,7 @@ var lineSerise1 = {
 var lineSerise2 = {
 	color: "#FF7E60",
 	thickness: 2,
-	data: [{x:0,y:93},{x:1,y:78},{x:2,y:81},{x:3,y:60},{x:4,y:99,color: "#03A9F4"},{x:5,y:71},{x:6,y:85},{x:7,y:95},{x:8,y:99},{x:9,y:100},{x:10,y:88}]
+	data: []
 }
 
 var lineSerise3 = {
