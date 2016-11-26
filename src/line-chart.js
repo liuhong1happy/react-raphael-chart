@@ -6,7 +6,7 @@ const Utils = require('./utils');
 class LineSerise extends React.Component{
 	getDefaultPath(){
 		var { width,height,xAxis,yAxis} = this.props;
-		return ["M",yAxis.width,height-xAxis.height+15,"L",width, height-xAxis.height+15 ];
+		return ["M",yAxis.width-15,height-xAxis.height+15,"L",width-15, height-xAxis.height+15 ];
 	}
 	getLinePath(){
         var data = this.getDrawPoints();
