@@ -4,6 +4,27 @@ const Axis = require('./base/Axis');
 const Utils = require('./utils');
 
 class LineSerise extends React.Component{
+	shouldComponentUpdate(nextProps,nextState){
+		var repeat = this.props.repeat;
+		var lastSerise = this.props.serise;
+		var nextSerise = nextProps.serise;
+		
+		if(!lastSerise || !lastSerise.data || !nextSerise || !nextSerise.data) return false;
+		if(!repeat){
+			if(lastSerise.data.length == nextSerise.data.length){
+				var similarSum = 0;
+				for(var i=0;i<lastSerise.data.length;i++){
+					var lastPoint = lastSerise.data[i];
+					var nextPoint = nextSerise.data[i];
+					if(lastPoint.x == nextPoint.x && lastPoint.y == nextPoint.y){
+						similarSum = similarSum +1;
+					}
+				}
+			}
+			if(lastSerise.data.length == similarSum) return false;
+		}
+		return true;
+	}
 	getDefaultPath(){
 		var { width,height,xAxis,yAxis} = this.props;
 		return ["M",yAxis.width-15,height-xAxis.height+15,"L",width-15, height-xAxis.height+15 ];
@@ -46,7 +67,7 @@ class LineSerise extends React.Component{
        return data.Values;
     }
     render(){
-	    var {serise} = this.props;
+	    var {serise,animate} = this.props;
 		
 		if(serise.data.length==0){
 			return (<Set></Set>)
@@ -57,17 +78,20 @@ class LineSerise extends React.Component{
 			x:data[0]?data[0]._x:0,
 			y:data[0]?data[0]._y:0
 		}
-		
-		
+
 		if(data.length==1){
 			return (<Circle r="4" x={first.x} y={first.y} attr={{"fill": serise.color,"stroke":serise.color,"stroke-width":serise.thickness}} />)
 		}
 					
 		var defaultPath = this.getDefaultPath();
 		var path = !!serise.curve ? this.getLinePath() : this.getCurvePath(first);
-
+		var animation = Raphael.animation({"path":path},500,"<>");
+		if(animate) {
+			defaultPath = path;
+			animation = null;
+		}
         return (<Set>
-            <Path d={defaultPath} attr={{"stroke":serise.color,"stroke-width":serise.thickness}} animate={Raphael.animation({"path":path},500,"<>")}/>
+            <Path d={defaultPath} attr={{"stroke":serise.color,"stroke-width":serise.thickness}} animate={animation}/>
         </Set>)
     }
 }
@@ -113,7 +137,9 @@ LineChart.propTypes = {
 	serises: React.PropTypes.array, 
 	xAxis: React.PropTypes.object, 
 	yAxis: React.PropTypes.object, 
-	grid:  React.PropTypes.object
+	grid:  React.PropTypes.object,
+	animate: React.PropTypes.bool,
+	repeat: React.PropTypes.bool
 };
 LineChart.defaultProps = { 
 	width: 600, 
@@ -138,7 +164,9 @@ LineChart.defaultProps = {
 		thickness: 1,
 		showYGrid: false,
 		showXGrid: true
-	} 
+	},
+	animate: true,
+	repeat: false
 };
                 
 module.exports = LineChart;

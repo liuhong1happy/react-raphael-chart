@@ -107,7 +107,9 @@ VoronoiLineChart.propTypes = {
 	serises: React.PropTypes.array, 
 	xAxis: React.PropTypes.object, 
 	yAxis: React.PropTypes.object, 
-	grid:  React.PropTypes.object
+	grid:  React.PropTypes.object,
+	animate: React.PropTypes.bool,
+	repeat: React.PropTypes.bool
 };
 VoronoiLineChart.defaultProps = { 
 	width: 600, 
@@ -132,6 +134,8 @@ VoronoiLineChart.defaultProps = {
 		thickness: 1,
 		showYGrid: false,
 		showXGrid: true
-	} 
+	},
+	animate: true,
+	repeat: false
 };
 module.exports = VoronoiLineChart;
