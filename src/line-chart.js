@@ -24,6 +24,9 @@ class LineSerise extends React.Component{
 	getCurvePath(first){
         var data = this.getDrawPoints();
 		var path = [];
+		if(data.length==2){
+			return ["M",first.x,first.y,"L",data[1]._x,data[1]._y,"Z"]
+		}
 		var controls = Utils.getControlPoint(data);
 		var pathData = ["M"+first.x+","+first.y+"C"+first.x+","+first.y+" "+controls[0].x+","+controls[0].y+" "+data[1]._x+","+data[1]._y];
 		for(var i=1;i<data.length-1;i++){
