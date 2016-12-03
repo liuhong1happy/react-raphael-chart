@@ -1,8 +1,11 @@
 {
   "name": "react-raphael-chart",
-  "version": "0.8.0-rc22",
+  "version": "0.8.0",
   "description": "so easy, create charts with react-raphael!",
   "main": "lib/index.js",
+  "files": [
+  	"lib"
+  ],
   "scripts": {
     "test": "test",
     "clean": "rm -rf ./lib",
@@ -11,7 +14,6 @@
     "docs": "webpack --devtool cheap-module-source-map --progress --color --profile --config webpack.docs.config.js --watch"
   },
   "dependencies": {
-    "raphael": "^2.2.6",
     "react-raphael": "^0.8.0",
 	"voronoi": "^1.0.0"
   },
@@ -39,7 +41,8 @@
     "console-polyfill": "^0.2.2",
     "es5-shim": "^4.4.1",
     "react": "^0.14.8",
-    "react-dom": "^0.14.8"
+    "react-dom": "^0.14.8",
+	"raphael": "^2.2.6"
   },
   "repository": {
     "type": "git",

@@ -7,7 +7,10 @@ so easy, create charts with react-raphael!
 
 ## Install
 
-	npm install --save react-raphael-chart
+	# or specify the externals in webpack config
+	npm install --save raphael
+	# install react-raphael-chart in your react-raphael-chart project
+	npm install  --save react-raphael-chart
 
 ## API
 
@@ -50,6 +53,67 @@ so easy, create charts with react-raphael!
 - animate `boolean` animation of DoughnutChart
 - repeat `boolean` repeat the animation
 
+#### LineChart ( VoronoiLineChart )
+
+- width `number` width of LineChart
+- height `number` width of LineChart
+- serises `array` serises of LineChart
+	- data `array` data of LineChart's serise
+		- x `number` x of LineChart's serise data
+		- y `number` x of LineChart's serise data
+	- color `string` color of LineChart's serise
+	- thickness `number` thickness of LineChart's serise
+	- curve `boolean` curve of LineChart's serise
+- xAxis `object` xAxis of LineChart
+	- min `number` min value of xAxis
+	- max `number` max value of xAxis
+	- interval `number` interval value of xAxis
+	- formatter `function` title formatter of xAxis `{ data: object }`
+	- height `number` height of xAxis
+- yAxis `object` yAxis of LineChart
+	- min `number` min value of yAxis
+	- max `number` max value of yAxis
+	- interval `number` interval value of yAxis
+	- formatter `function` title formatter of yAxis `{ data: object }`
+	- width `number` width of yAxis
+- grid `object` grid of LineChart
+	- color `string` color of LineChart's grid
+	- thickness `number` thickness of LineChart's serise
+	- showYGrid `boolean` show y axis grid of LineChart
+	- showXGrid `boolean` show y axis grid of LineChart
+- animate `boolean` animation of LineChart
+- repeat `boolean` repeat the LineChart
+
+#### BarChart
+
+- width `number` width of BarChart
+- height `number` width of BarChart
+- serises `array` serises of BarChart
+	- data `array` data of BarChart's serise
+		- x `number` x of BarChart's serise data
+		- y `number` x of BarChart's serise data
+	- color `string` color of BarChart's serise
+	- hoverColor `string` hover color of BarChart's serise
+- xAxis `object` xAxis of BarChart
+	- min `number` min value of xAxis
+	- max `number` max value of xAxis
+	- interval `number` interval value of xAxis
+	- formatter `function` title formatter of xAxis `{ data: object }`
+	- height `number` height of xAxis
+- yAxis `object` yAxis of BarChart
+	- min `number` min value of yAxis
+	- max `number` max value of yAxis
+	- interval `number` interval value of yAxis
+	- formatter `function` title formatter of yAxis `{ data: object }`
+	- width `number` width of yAxis
+- grid `object` grid of BarChart
+	- color `string` color of BarChart's grid
+	- thickness `number` thickness of BarChart's serise
+	- showYGrid `boolean` show y axis grid of BarChart
+	- showXGrid `boolean` show y axis grid of BarChart
+- barWidth `number` max width of BarChart's bar
+- fontSize `number` font size of BarChart's text
+- textAutoHide  `boolean` auto hide of BarChart's text
 
 
 ## Develop
@@ -74,9 +138,6 @@ so easy, create charts with react-raphael!
 
 Now , you can see [example](example/index.js) !
 
-## Snapshot
-
-![Snapshot](snapshot.png)
 
 # Contact
 

@@ -127,10 +127,27 @@ class BarChart extends React.Component{
 BarChart.propTypes = { 
 	width: React.PropTypes.number, 
 	height: React.PropTypes.number,
-	serises: React.PropTypes.array, 
-	xAxis: React.PropTypes.object, 
-	yAxis: React.PropTypes.object, 
-	grid:  React.PropTypes.object,
+	serises: React.PropTypes.arrayOf(React.PropTypes.object),
+	xAxis: React.PropTypes.shape({
+		min: React.PropTypes.number, 
+		max: React.PropTypes.number, 
+		interval: React.PropTypes.number, 
+		formatter: React.PropTypes.func, 
+		width: React.PropTypes.number, 
+	}),
+	yAxis: React.PropTypes.shape({
+		min: React.PropTypes.number, 
+		max: React.PropTypes.number, 
+		interval: React.PropTypes.number, 
+		formatter: React.PropTypes.func, 
+		width: React.PropTypes.number, 
+	}),
+	grid:  React.PropTypes.shape({
+		color: React.PropTypes.string, 
+		thickness: React.PropTypes.number,
+		showYGrid: React.PropTypes.bool,
+		showXGrid: React.PropTypes.bool
+	}),
 	barWidth: React.PropTypes.number,
 	fontSize: React.PropTypes.number,
 	textAutoHide: React.PropTypes.bool

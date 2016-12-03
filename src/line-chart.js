@@ -109,7 +109,6 @@ LineSerise.propTypes = {
 	yAxis: React.PropTypes.object
 };
 
-
 class LineChart extends React.Component{
     constructor(props){
         super(props);
@@ -148,7 +147,6 @@ class LineChart extends React.Component{
 LineChart.propTypes = { 
 	width: React.PropTypes.number, 
 	height: React.PropTypes.number,
-<<<<<<< HEAD
 	serises: React.PropTypes.arrayOf(React.PropTypes.object),
 	xAxis: React.PropTypes.shape({
 		min: React.PropTypes.number, 
@@ -164,15 +162,14 @@ LineChart.propTypes = {
 		formatter: React.PropTypes.func, 
 		width: React.PropTypes.number, 
 	}),
-	grid:  React.PropTypes.object
-=======
-	serises: React.PropTypes.array, 
-	xAxis: React.PropTypes.object, 
-	yAxis: React.PropTypes.object, 
-	grid:  React.PropTypes.object,
+	grid:  React.PropTypes.shape({
+		color: React.PropTypes.string, 
+		thickness: React.PropTypes.number,
+		showYGrid: React.PropTypes.bool,
+		showXGrid: React.PropTypes.bool
+	}),
 	animate: React.PropTypes.bool,
 	repeat: React.PropTypes.bool
->>>>>>> a2f29e0092cd7a827a7159dbd091ab906f118272
 };
 LineChart.defaultProps = { 
 	width: 600, 
