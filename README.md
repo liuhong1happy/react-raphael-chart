@@ -50,6 +50,8 @@ so easy, create charts with react-raphael!
 - animate `boolean` animation of DoughnutChart
 - repeat `boolean` repeat the animation
 
+
+
 ## Develop
 
 1. clone the repository
