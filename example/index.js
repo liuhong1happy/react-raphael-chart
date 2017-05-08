@@ -1,28 +1,34 @@
 require('./index.less');
 var React = require('react');
 var ReactDOM = require('react-dom');
-var {LineChart,BarChart,PieChart,DoughnutChart , VoronoiLineChart} = require('../lib/index');
+var { LineChart, ColumnChart, PieChart, DoughnutChart, BarChart , VoronoiLineChart } = require('../lib/index');
 const { Raphael, Paper, Set, Text, Rect,Path, Circle } = require('react-raphael');
 
 var lineSerise = {
 	color: "#74C93C",
 	thickness: 2,
+	curve: true,
 	data: [{x:0,y:90},{x:1,y:83},{x:2,y:80},{x:3,y:45},{x:4,y:82},{x:5,y:75},{x:6,y:95},{x:7,y:100},{x:8,y:98},{x:9,y:92},{x:10,y:94}]
 }
+
 var lineSerise1 = {
 	color: "#9e9298",
 	thickness: 2,
+	curve: true,
 	data: [{x:0,y:73},{x:1,y:68},{x:2,y:71},{x:3,y:55},{x:4,y:89},{x:5,y:91},{x:6,y:72},{x:7,y:76},{x:8,y:78},{x:9,y:78},{x:10,y:90}]
 }
+
 var lineSerise2 = {
 	color: "#FF7E60",
 	thickness: 2,
+	curve: true,
 	data: []
 }
 
 var lineSerise3 = {
 	color: "#9802fe",
 	thickness: 2,
+	curve: true,
 	data: [{x:0,y:83},{x:1,y:68},{x:2,y:71},{x:3,y:50},{x:4,y:89,color: "#03A9F4"},{x:5,y:71},{x:6,y:72},{x:7,y:76},{x:8,y:78},{x:9,y:78},{x:10,y:90}]
 }
 
@@ -54,7 +60,7 @@ var pieSerise = {
 	onClick: function(e){ console.log(e); }
 }
 
-const SampleLineChart = ()=> <LineChart width={500} height={360} serises={[lineSerise]} />;
+const SampleLineChart = ()=> <LineChart curve={false} width={500} height={360} serises={[lineSerise]} />;
 class ExtendLineChart extends React.Component{
 	constructor(props){
 		super(props);
@@ -87,7 +93,45 @@ class ExtendLineChart extends React.Component{
 	}
 }
 
-const SampleBarChart = ()=> <BarChart width={500} height={360} serises={[barSerise,barSerise2]} />;
+const barSerises = [
+	{
+		color: "#74C93C",
+		hoverColor: "#FF7E60",
+		data: [{x:1100,y:1}]
+	},{
+		color: "#03A9F4",
+		hoverColor: "#FF7E60",
+		data: [{x:1300,y:1}]
+	},{
+		color: "#FF7E60",
+		hoverColor: "#FF7E60",
+		data: [{x:1200,y:1}]
+	},{
+		color: "#9802fe",
+		hoverColor: "#FF7E60",
+		data: [{x:1200,y:1}]
+	}
+]
+
+const barXAxis = {
+	min: 0, 
+	max: 4000, 
+	interval: 400, 
+	formatter: null
+}
+
+const barYAxis = {
+	min: 0, 
+	max: 1, 
+	interval: 1, 
+	formatter: function(i) {
+		return '扫描次数\n \n赞\n \n分享\n \nH5分享阅读'
+	}, 
+	width: 150, 
+}
+
+const SampleColumnChart = ()=> <ColumnChart width={500} height={360} serises={[barSerise,barSerise2]} />;
+const SampleBarChart = ()=> <BarChart barWidth={12} xAxis={barXAxis} yAxis={barYAxis} width={1000} height={200} serises={barSerises} />;
 const SamplePieChart = () => <PieChart {...pieSerise} />;
 const SampleDoughnutChart = () => <DoughnutChart {...pieSerise} />;
 
@@ -114,6 +158,7 @@ class ExtendPieChart extends React.Component{
 ReactDOM.render(<div>
                 <SampleLineChart />
                 <ExtendLineChart />
+				<SampleColumnChart />
 				<SampleBarChart />
 				<SamplePieChart />
 				<ExtendPieChart />

@@ -27,6 +27,7 @@ class YAxis extends React.Component{
 	render(){
 		var yValues = this.props.yValues;
 		var {color,thickness} = this.props.grid;
+		var type = this.props.type;
 		return (<Set>
 			{
 				yValues.map(function(ele,pos){
@@ -35,7 +36,9 @@ class YAxis extends React.Component{
 			}
 			{
 				yValues.map(function(ele,pos){
-					return (<Text key={pos} x={ele.x1-12} y={ele.y} text={String(ele.label)} attr={{"fill":ele.color,"text-anchor":"end","font-size": 14}} />)
+					var y = ele.y;
+					if(type=="bar") y = ele.y + ele.interval /2;
+					return (<Text key={pos} x={ele.x1-12} y={y} text={String(ele.label)} attr={{"fill":ele.color,"text-anchor":"end","font-size": 12}} />)
 				})
 			}
 		</Set>)				
@@ -56,8 +59,8 @@ class XAxis extends React.Component{
 			{
 				xValues.map(function(ele,pos){
 					var x = ele.x;
-					if(type=="bar") x = ele.x + ele.interval /2;
-					return (<Text key={pos} x={x} y={ele.y2 + 12} text={String(ele.label)} attr={{"fill":ele.color,"font-size": 14}}/>)
+					if(type=="column") x = ele.x + ele.interval /2;
+					return (<Text key={pos} x={x} y={ele.y2 + 12} text={String(ele.label)} attr={{"fill":ele.color,"font-size": 12}}/>)
 				})
 			}
 		</Set>)
@@ -70,8 +73,8 @@ class Axis extends React.Component{
         var data = Utils.getAxisData({width,height,xAxis,yAxis,type});
 		
         return (<Set>
-            <XAxis xValues={data.xValues} grid={grid} type={type}/>        
-            <YAxis yValues={data.yValues} grid={grid} />
+            <XAxis xValues={data.xValues} grid={grid} type={type} />        
+            <YAxis yValues={data.yValues} grid={grid} type={type} />
             <Grid grid={grid} data={data} />
         </Set>)
     }

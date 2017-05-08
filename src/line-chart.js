@@ -34,7 +34,7 @@ class LineSerise extends React.Component{
 		var path = [];
 		if(data.length>=1){
 			path.push([ "M", data[0]._x, data[0]._y ]);
-			for(var i=1;i<_data.length;i++){
+			for(var i=1;i< data.length;i++){
 				path.push(["L", data[i]._x, data[i]._y ]);
 			}
 		}else{

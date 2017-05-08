@@ -5,12 +5,12 @@ const Utils = require('./utils');
 
 const { Component, PropTypes } = React;
 
-class BarSerise extends Component{
+class ColumnSerise extends Component{
 	getDefaultPath(){
 		var { width,height,xAxis,yAxis} = this.props;
 		return ["M",yAxis.width,height-xAxis.height+15,"L",width, height-xAxis.height+15 ];
 	}
-	getBarPath(){
+	getColumnPath(){
         var data = this.getDrawPoints();
 		var path = [];
 		if(data.length>=1){
@@ -27,7 +27,7 @@ class BarSerise extends Component{
 	   var { width,height,serise,xAxis,yAxis,index,count,barWidth,fontSize} = this.props;
 		serise._index = index; 
 		serise._count = count;
-       var data = Utils.getBarData({width,height,xAxis,yAxis,barWidth,fontSize},serise);
+       var data = Utils.getColumnData({width,height,xAxis,yAxis,barWidth,fontSize},serise);
        return data.Values;
     }
 	handleMouseOut(){
@@ -51,20 +51,20 @@ class BarSerise extends Component{
 		}
 	}
     render(){
-	    var {serise,height,xAxis, yAxis,fontSize,textAutoHide} = this.props;
+	    var {serise,height,xAxis,fontSize,textAutoHide} = this.props;
 		serise.textAutoHide = textAutoHide;
 		var data = this.getDrawPoints();
-		var defaultX = ((yAxis.width || 60) - 15);
+		var defaultY = height - xAxis.height + 15;
 		var handleMouseOut = this.handleMouseOut;
 		var handleMouseOver = this.handleMouseOver;
         return (<Set>
 			{
 				data.map(function(ele,pos){
 					return (<Set key={pos}>
-						<Rect key={"path"+pos} x={defaultX} y={ele._y - ele._height /2} width={0} height={ele._height} data={{...serise}}
+						<Rect key={"path"+pos} x={ele._x - ele._width/2} y={defaultY} width={ele._width} height={0} data={{...serise}}
 							attr={{"fill": ele.color || serise.color,"stroke": "none"}} mouseout={handleMouseOut} mouseover={handleMouseOver}
-							animate={Raphael.animation({"width":ele._width},500,"<>")} />
-						<Text key={"text"-pos} x={defaultX + ele._width + fontSize/2 } y={ele._y} text={String(ele.x)} attr={{"text-anchor": "start", "fill": textAutoHide? serise.hoverColor : (ele.color || serise.color),"font-size": fontSize}} hide={textAutoHide}/>
+							animate={Raphael.animation({"y":ele._y,"height":ele._height},500,"<>")} />
+						<Text key={"text"-pos} x={ele._x} y={ele._y-fontSize/2} text={String(ele.y)} attr={{"fill": textAutoHide? serise.hoverColor : (ele.color || serise.color),"font-size": fontSize}} hide={textAutoHide}/>
 						</Set>)
 				})
 			}
@@ -72,14 +72,14 @@ class BarSerise extends Component{
     }
 }
 
-class BarChart extends Component{
+class ColumnChart extends Component{
     render(){
         var {width,height,serises,xAxis,yAxis,grid,fontSize,barWidth,textAutoHide,children} = this.props;
         return (<Paper width={width} height={height}>
-            <Axis type="bar" width={width} height={height} xAxis={xAxis} yAxis={yAxis} grid={grid} />
+            <Axis type="column" width={width} height={height} xAxis={xAxis} yAxis={yAxis} grid={grid} />
             {
                 serises.map(function(ele,pos){
-                    return (<BarSerise key={pos} ref={"serise"+pos} index={pos} count={serises.length+1} width={width} height={height} barWidth={barWidth} fontSize={fontSize}
+                    return (<ColumnSerise key={pos} ref={"serise"+pos} index={pos} count={serises.length+1} width={width} height={height} barWidth={barWidth} fontSize={fontSize}
 							textAutoHide={textAutoHide} serise={ele} xAxis={xAxis} yAxis={yAxis} />)
                 })
             }
@@ -90,7 +90,7 @@ class BarChart extends Component{
     }
 }
 
-BarChart.propTypes = { 
+ColumnChart.propTypes = { 
 	width: PropTypes.number, 
 	height: PropTypes.number,
 	serises: PropTypes.arrayOf(PropTypes.object),
@@ -118,20 +118,20 @@ BarChart.propTypes = {
 	fontSize: PropTypes.number,
 	textAutoHide: PropTypes.bool
 };
-BarChart.defaultProps = { 
+ColumnChart.defaultProps = { 
 	width: 600, 
 	height: 400, 
 	serises: [], 
 	xAxis: {
 		min: 0,
-		max: 10000,
-		interval: 200,
+		max: 10,
+		interval: 1,
 		formatter: null,
 		height: 60
 	}, 
 	yAxis: {
 		min: 0,
-		max: 4,
+		max: 100,
 		interval: 10,
 		formatter: null,
 		width: 60
@@ -147,4 +147,4 @@ BarChart.defaultProps = {
 	textAutoHide: false
 };
                 
-module.exports = BarChart;
+module.exports = ColumnChart;

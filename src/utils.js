@@ -36,20 +36,24 @@ var Utils = {
 				x: (i-xAxis.min)*xInterval + axisW - 15,
 				y1: chartH +15,
 				y2: chartH + 22,
-				label: !!xAxis.formatter ? (type=="bar"?xAxis.formatter(i+1):xAxis.formatter(i)) : (type=="bar"?i+1:i),
+				label: !!xAxis.fofrmatter ? (type=="column"?xAxis.formatter(i+1):xAxis.formatter(i)) : (type=="column"?i+1:i),
 				color: xAxis.color || "#737373",
 				interval: xInterval
 			})
 		}
 		for(var i=yAxis.min;i<=yAxis.max;i=i+yAxis.interval){
-			yValues.push({
+			var yValue = {
 				y: (chartH - (i-yAxis.min)*yInterval) + 15,
 				x1: axisW - 15,
 				x2: axisW - 22,
 				label: !!yAxis.formatter ? yAxis.formatter(i) : i,
 				color: xAxis.color || "#737373",
 				interval: yInterval
-			})
+			};
+			if(type=="bar" && i==yAxis.min) yValue.label = "";
+			yValues.push(yValue)
+
+			
 		}
 			
 		return {
@@ -87,7 +91,7 @@ var Utils = {
     	}
 		return arr;
 	},
-	getBarData: function(options,serise){
+	getColumnData: function(options,serise){
         var {width,height,xAxis,yAxis,barWidth} = options;
 		var {data,formatter,_count,_index} = serise;
 		var axisW = yAxis.width || 60;
@@ -111,7 +115,32 @@ var Utils = {
 		return {
 			Values: data
 		}
-	}
+	},
+	getBarData: function(options,serise){
+        var {width,height,xAxis,yAxis,barWidth} = options;
+		var {data,formatter,_count,_index} = serise;
+		var axisW = yAxis.width || 60;
+		var axisH = xAxis.height || 60;
+		var chartW = width - axisW;
+		var chartH = height - axisH;
+		var yInterval = chartH / ( yAxis.max - yAxis.min );
+		var xInterval = chartW / (xAxis.max - xAxis.min );
+		
+		var	max = barWidth || 20;
+		
+		for(var i=0;i<data.length;i++){
+			data[i]._width = xInterval * data[i].x;
+			data[i]._x = xInterval * (data[i].x - xAxis.interval);
+			data[i]._y = (chartH - yInterval * data[i].y) + (axisH - 45) + (yInterval / _count)*(_index+1)
+			data[i]._label = !!formatter ? formatter(data[i]) : (data[i].label || data[i].x);
+			data[i]._height = (yInterval / _count)  > max ? barWidth || (yInterval / _count -2) : (yInterval / _count -2);
+			data[i].color = data[i].color || serise.color;
+		}
+
+		return {
+			Values: data
+		}
+	},
 }
 
 module.exports = Utils;
